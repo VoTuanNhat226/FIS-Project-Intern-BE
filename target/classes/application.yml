@@ -1,0 +1,78 @@
+server:
+  port: 8088
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/storedb
+    username: postgres
+    password: 123456789
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        format_sql: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/TuanNhat
+          jwk-set-uri: http://localhost:8080/realms/TuanNhat/protocol/openid-connect/certs
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: tuannhat226@gmail.com
+    password: ofkh vfej yttv zupv
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+keycloak:
+  username: admin
+  password: 123456
+  auth-server-url: http://localhost:8080/
+  realm: TuanNhat
+  resource: tuannhat-rest-api
+  public-client: false
+  credentials:
+    secret: fPiS0h4b5UCz3f5LIxoALt9Vvd0oQSDL
+
+camunda:
+  bpm:
+    #    database-history: full
+    #    enforce-ttl: false
+    #    history-level: full
+    #    history-time-to-live: 30d
+    engine:
+      name: default
+    rest-enabled: true
+    auto-deployment-enabled: true
+    application:
+      scan-for-process-definitions: true
+    default-serializer-format: application/json
+    authorization:
+      enabled: false
+    admin-user:
+      id: demo
+      password: demo
+    database:
+      type: postgres
+    webapp:
+      index-redirect-enabled: true
+    job-execution:
+      enabled: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org:
+      hibernate:
+        SQL: debug
+        type: trace
